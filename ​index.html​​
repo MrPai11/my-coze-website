@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的扣子应用网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        main {
+            padding: 40px 20px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4facfe;
+        }
+        
+        .login-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .user-info {
+            background: #e8f5e8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>欢迎使用我的扣子应用</h1>
+            <p class="subtitle">基于AI的智能助手平台</p>
+        </header>
+        
+        <main>
+            <div class="feature-card">
+                <h2>🚀 功能特点</h2>
+                <p>这是一个基于扣子平台搭建的智能应用，提供以下功能：</p>
+                <ul>
+                    <li>智能对话助手</li>
+                    <li>个性化服务推荐</li>
+                    <li>多场景应用支持</li>
+                </ul>
+            </div>
+            
+            <div class="login-section">
+                <h2>开始使用</h2>
+                <p>点击下方按钮使用扣子账号登录</p>
+                <a href="#" class="login-btn" id="loginBtn">使用扣子账号登录</a>
+            </div>
+            
+            <div class="user-info" id="userInfo">
+                <h2>登录成功！</h2>
+                <p>欢迎使用我们的服务</p>
+                <p>Access Token: <span id="accessToken"></span></p>
+            </div>
+            
+            <div class="feature-card">
+                <h2>📱 如何使用</h2>
+                <p>1. 点击上方登录按钮授权</p>
+                <p>2. 开始使用智能助手功能</p>
+                <p>3. 享受个性化AI服务</p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2024 我的扣子应用 - 基于免费平台搭建</p>
+        </footer>
+    </div>
+
+    <script>
+        // 登录按钮点击事件
+        document.getElementById('loginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 构建扣子OAuth授权链接
+            const clientId = '你的扣子客户端ID'; // 稍后替换
+            const redirectUri = '你的Vercel域名/api/callback'; // 稍后替换
+            const authUrl = `https://api.coze.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=user.info`;
+            
+            // 跳转到扣子授权页面
+            window.location.href = authUrl;
+        });
+        
+        // 检查URL中是否有授权结果
+        const urlParams = new URLSearchParams(window.location.search);
+        const authResult = urlParams.get('auth');
+        
+        if (authResult === 'success') {
+            const token = urlParams.get('token');
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('accessToken').textContent = token || '已获取';
+        }
+    </script>
+</body>
+</html>
