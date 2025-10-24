@@ -95,6 +95,15 @@
             margin: 20px 0;
             display: none;
         }
+        
+        .error-message {
+            background: #ffebee;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+            color: #c62828;
+        }
     </style>
 </head>
 <body>
@@ -119,6 +128,13 @@
                 <h2>开始使用</h2>
                 <p>点击下方按钮使用扣子账号登录</p>
                 <a href="#" class="login-btn" id="loginBtn">使用扣子账号登录</a>
+            </div>
+            
+            <!-- 添加错误信息显示区域 -->
+            <div class="error-message" id="errorMessage">
+                <h2>授权失败</h2>
+                <p>原因: <span id="errorReason"></span></p>
+                <p>请重试或联系管理员</p>
             </div>
             
             <div class="user-info" id="userInfo">
@@ -146,24 +162,38 @@
             e.preventDefault();
             
             // 构建扣子OAuth授权链接
-            const clientId = '63682119960362288341255487813694.app.coze'; // 稍后替换
-            const redirectUri = 'https://my-coze-website.vercel.app/api/callback'; // 稍后替换
-            const authUrl = `https://api.coze.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=user.info`;
+            const clientId = '63682119960362288341255487813694.app.coze';
+            const redirectUri = 'https://my-coze-website.vercel.app/api/callback';
+            
+            // 重要：确保正确编码所有参数
+            const authUrl = new URL('https://api.coze.com/oauth/authorize');
+            authUrl.searchParams.append('client_id', clientId);
+            authUrl.searchParams.append('redirect_uri', redirectUri);
+            authUrl.searchParams.append('response_type', 'code');
+            // 移除scope参数或使用正确的scope值
+            // authUrl.searchParams.append('scope', 'user.info');
+            
+            console.log('授权链接:', authUrl.href);
             
             // 跳转到扣子授权页面
-            window.location.href = authUrl;
+            window.location.href = authUrl.href;
         });
         
-        // 检查URL中是否有授权结果
+        // 检查URL中是否有授权结果或错误
         const urlParams = new URLSearchParams(window.location.search);
         const authResult = urlParams.get('auth');
+        const error = urlParams.get('error');
         
         if (authResult === 'success') {
+            // 显示成功信息
             const token = urlParams.get('token');
             document.getElementById('userInfo').style.display = 'block';
             document.getElementById('accessToken').textContent = token || '已获取';
+        } else if (error) {
+            // 显示错误信息
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorReason').textContent = decodeURIComponent(error);
         }
     </script>
 </body>
-
 </html>
