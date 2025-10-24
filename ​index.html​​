@@ -146,8 +146,8 @@
             e.preventDefault();
             
             // 构建扣子OAuth授权链接
-            const clientId = '你的扣子客户端ID'; // 稍后替换
-            const redirectUri = '你的Vercel域名/api/callback'; // 稍后替换
+            const clientId = '63682119960362288341255487813694.app.coze'; // 稍后替换
+            const redirectUri = 'https://my-coze-website.vercel.app/api/callback'; // 稍后替换
             const authUrl = `https://api.coze.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=user.info`;
             
             // 跳转到扣子授权页面
@@ -165,4 +165,5 @@
         }
     </script>
 </body>
+
 </html>
