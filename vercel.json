@@ -6,6 +6,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/test.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "index.html",
       "use": "@vercel/static"
     }
@@ -13,7 +17,11 @@
   "routes": [
     {
       "src": "/api/callback",
-      "dest": "api/callback"  // 修改这里，去掉 .js 扩展名
+      "dest": "api/callback"
+    },
+    {
+      "src": "/api/test",
+      "dest": "api/test"
     },
     {
       "src": "/(.*)",
