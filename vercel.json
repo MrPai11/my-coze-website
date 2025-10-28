@@ -2,11 +2,27 @@
   "version": 2,
   "builds": [
     {
+      "src": "api/test.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/callback.js", 
+      "use": "@vercel/node"
+    },
+    {
       "src": "index.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/test",
+      "dest": "/api/test.js"
+    },
+    {
+      "src": "/api/callback",
+      "dest": "/api/callback.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
