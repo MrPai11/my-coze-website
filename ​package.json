@@ -1,12 +1,19 @@
 {
-  "name": "my-coze-website-minimal",
+  "name": "my-coze-website-edgeone",
   "version": "1.0.0",
-  "description": "最小验证配置",
+  "description": "EdgeOne Pages 最小验证配置",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "echo '使用 EdgeOne Pages 控制台进行部署'"
   },
   "engines": {
     "node": ">=18.x"
-  }
+  },
+  "keywords": [
+    "edgeone",
+    "pages",
+    "verification"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }
