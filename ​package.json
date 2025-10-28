@@ -1,18 +1,12 @@
 {
-  "name": "my-coze-website",
+  "name": "my-coze-website-minimal",
   "version": "1.0.0",
-  "description": "基于扣子平台的免费网站",
-  "type": "module",  // 添加这一行
+  "description": "最小验证配置",
+  "type": "module",
   "scripts": {
     "dev": "vercel dev"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "@vercel/node": "^1.15.0"
-  },
   "engines": {
-    "node": ">=16.x"
+    "node": ">=18.x"
   }
 }
