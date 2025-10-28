@@ -1,5 +1,7 @@
-// 扣子OAuth回调处理函数
-export default async function handler(req, res) {
+// 扣子OAuth回调处理函数 - CommonJS版本
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+module.exports = async (req, res) => {
   // 设置CORS头部，允许跨域请求
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -24,9 +26,6 @@ export default async function handler(req, res) {
     const clientId = process.env.CLIENT_ID;
     const clientSecret = process.env.CLIENT_SECRET;
     const redirectUri = process.env.REDIRECT_URI;
-    
-    // 动态导入node-fetch
-    const fetch = (await import('node-fetch')).default;
     
     // 用授权码换取访问令牌
     const tokenResponse = await fetch('https://api.coze.com/oauth/token', {
@@ -59,4 +58,4 @@ export default async function handler(req, res) {
     console.error('OAuth回调处理错误:', error);
     res.redirect('/?error=服务器错误');
   }
-}
+};
