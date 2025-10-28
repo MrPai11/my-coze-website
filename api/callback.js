@@ -25,6 +25,9 @@ export default async function handler(req, res) {
     const clientSecret = process.env.CLIENT_SECRET;
     const redirectUri = process.env.REDIRECT_URI;
     
+    // 动态导入node-fetch
+    const fetch = (await import('node-fetch')).default;
+    
     // 用授权码换取访问令牌
     const tokenResponse = await fetch('https://api.coze.com/oauth/token', {
       method: 'POST',
