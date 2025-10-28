@@ -3,197 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的扣子应用网站</title>
+    <title>网站状态检测</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
+            font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        main {
-            padding: 40px 20px;
-        }
-        
-        .feature-card {
-            background: #f8f9fa;
-            border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #4facfe;
-        }
-        
-        .login-section {
             text-align: center;
-            margin: 40px 0;
         }
-        
-        .login-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            color: #666;
-        }
-        
-        .user-info {
-            background: #e8f5e8;
-            border-radius: 10px;
+        .status {
             padding: 20px;
             margin: 20px 0;
-            display: none;
+            border-radius: 5px;
         }
-        
-        .error-message {
-            background: #ffebee;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            display: none;
-            color: #c62828;
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>欢迎使用我的扣子应用</h1>
-            <p class="subtitle">基于AI的智能助手平台</p>
-        </header>
-        
-        <main>
-            <div class="feature-card">
-                <h2>🚀 功能特点</h2>
-                <p>这是一个基于扣子平台搭建的智能应用，提供以下功能：</p>
-                <ul>
-                    <li>智能对话助手</li>
-                    <li>个性化服务推荐</li>
-                    <li>多场景应用支持</li>
-                </ul>
-            </div>
-            
-            <div class="login-section">
-                <h2>开始使用</h2>
-                <p>点击下方按钮使用扣子账号登录</p>
-                <a href="#" class="login-btn" id="loginBtn">使用扣子账号登录</a>
-            </div>
-            
-            <!-- 添加错误信息显示区域 -->
-            <div class="error-message" id="errorMessage">
-                <h2>授权失败</h2>
-                <p>原因: <span id="errorReason"></span></p>
-                <p>请重试或联系管理员</p>
-            </div>
-            
-            <div class="user-info" id="userInfo">
-                <h2>登录成功！</h2>
-                <p>欢迎使用我们的服务</p>
-                <p>Access Token: <span id="accessToken"></span></p>
-            </div>
-            
-            <div class="feature-card">
-                <h2>📱 如何使用</h2>
-                <p>1. 点击上方登录按钮授权</p>
-                <p>2. 开始使用智能助手功能</p>
-                <p>3. 享受个性化AI服务</p>
-            </div>
-        </main>
-        
-        <footer>
-            <p>© 2024 我的扣子应用 - 基于免费平台搭建</p>
-        </footer>
+    <h1>🚀 网站状态检测</h1>
+    <div class="status success" id="staticStatus">
+        ✅ 静态页面加载成功
+    </div>
+    
+    <div class="status" id="apiStatus">
+        🔄 检测API连接中...
+    </div>
+
+    <div>
+        <h3>测试链接：</h3>
+        <p><a href="/api/test" target="_blank">测试API端点</a></p>
+        <p><a href="/api/callback" target="_blank">测试回调端点</a></p>
     </div>
 
     <script>
-        // 登录按钮点击事件
-        document.getElementById('loginBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 构建扣子OAuth授权链接
-            const clientId = '63682119960362288341255487813694.app.coze';
-            const redirectUri = 'https://my-coze-website.vercel.app/api/callback';
-            
-            // 重要：确保正确编码所有参数
-            const authUrl = new URL('https://api.coze.com/oauth/authorize');
-            authUrl.searchParams.append('client_id', clientId);
-            authUrl.searchParams.append('redirect_uri', redirectUri);
-            authUrl.searchParams.append('response_type', 'code');
-            // 移除scope参数或使用正确的scope值
-            // authUrl.searchParams.append('scope', 'user.info');
-            
-            console.log('授权链接:', authUrl.href);
-            
-            // 跳转到扣子授权页面
-            window.location.href = authUrl.href;
-        });
-        
-        // 检查URL中是否有授权结果或错误
-        const urlParams = new URLSearchParams(window.location.search);
-        const authResult = urlParams.get('auth');
-        const error = urlParams.get('error');
-        
-        if (authResult === 'success') {
-            // 显示成功信息
-            const token = urlParams.get('token');
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('accessToken').textContent = token || '已获取';
-        } else if (error) {
-            // 显示错误信息
-            document.getElementById('errorMessage').style.display = 'block';
-            document.getElementById('errorReason').textContent = decodeURIComponent(error);
+        // 测试API连接
+        async function testAPI() {
+            try {
+                const response = await fetch('/api/test');
+                if (response.ok) {
+                    document.getElementById('apiStatus').className = 'status success';
+                    document.getElementById('apiStatus').innerHTML = '✅ API连接成功';
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                document.getElementById('apiStatus').className = 'status error';
+                document.getElementById('apiStatus').innerHTML = `❌ API连接失败: ${error.message}`;
+            }
         }
+
+        // 页面加载后测试API
+        setTimeout(testAPI, 1000);
     </script>
 </body>
 </html>
