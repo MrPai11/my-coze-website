@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "description": "应用路由配置",
+  "include": ["/*"],
+  "exclude": ["/api/*"],
+  "rules": [
+    {
+      "match": "/api/callback",
+      "behavior": "edge-function"
+    },
+    {
+      "match": "/*",
+      "behavior": "filesystem"
+    }
+  ]
+}
