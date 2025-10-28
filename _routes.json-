@@ -1,11 +1,9 @@
 {
   "version": 1,
-  "description": "应用路由配置",
-  "include": ["/*"],
-  "exclude": ["/api/*"],
+  "description": "路由配置",
   "rules": [
     {
-      "match": "/api/callback",
+      "match": "/api/*",
       "behavior": "edge-function"
     },
     {
