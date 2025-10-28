@@ -2,6 +2,7 @@
   "name": "my-coze-website",
   "version": "1.0.0",
   "description": "基于扣子平台的免费网站",
+  "type": "module",  // 添加这一行
   "scripts": {
     "dev": "vercel dev"
   },
