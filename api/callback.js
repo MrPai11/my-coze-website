@@ -1,7 +1,7 @@
-// 扣子OAuth回调处理函数 - CommonJS版本
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+// 扣子OAuth回调处理函数 - ES模块版本
+import fetch from 'node-fetch';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   // 设置CORS头部，允许跨域请求
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
