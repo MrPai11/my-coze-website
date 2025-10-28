@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/api/callback",
-      "dest": "/api/callback.js"
+      "dest": "api/callback"  // 修改这里，去掉 .js 扩展名
     },
     {
       "src": "/(.*)",
